@@ -8,6 +8,25 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class IC4CAssetParametersDTO {
+	
+	public IC4CAssetParametersDTO(){
+		
+	}
+
+	public IC4CAssetParametersDTO(String pinType, String tagType, String tag, String uom, String binary,
+			String multiplier, float low, float high, double value, long timestamp) {
+		super();
+		this.pinType = pinType;
+		this.tagType = tagType;
+		this.tag = tag;
+		this.uom = uom;
+		this.binary = binary;
+		this.multiplier = multiplier;
+		this.low = low;
+		this.high = high;
+		this.value = value;
+		this.timestamp = timestamp;
+	}
 
 	private String pinType;
 	private String tagType;
