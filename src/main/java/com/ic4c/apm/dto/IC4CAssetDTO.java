@@ -20,6 +20,7 @@ public class IC4CAssetDTO {
 	private Map<String,String> attributes;
 	private Map<String,IC4CAssetParametersDTO> parameters;
 
+
 	
 	public String getUri() {
 		return uri;
@@ -69,5 +70,6 @@ public class IC4CAssetDTO {
 	public void setParameters(Map<String, IC4CAssetParametersDTO> parameters) {
 		this.parameters = parameters;
 	}
+
 	
 }

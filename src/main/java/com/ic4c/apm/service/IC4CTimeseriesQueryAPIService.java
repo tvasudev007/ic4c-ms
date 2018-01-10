@@ -10,4 +10,6 @@ public interface IC4CTimeseriesQueryAPIService {
 	public String getLatestValues(List<String> tagNames, String authorizationToken)
 			throws ClientProtocolException, IOException;
 
+	public String getLimitedValues(List<String> tagNames, String authorizationToken)
+			throws ClientProtocolException, IOException;
 }

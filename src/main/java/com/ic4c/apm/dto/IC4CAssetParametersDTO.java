@@ -9,6 +9,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class IC4CAssetParametersDTO {
 	
+	private String pinType;
+	private String tagType;
+	private String tag;
+	private String uom;
+	private String binary;
+	private String multiplier;
+	private float low;
+	private float high;
+	private double value;
+	private long timestamp;
+	private String tileType;
+	
 	public IC4CAssetParametersDTO(){
 		
 	}
@@ -28,16 +40,7 @@ public class IC4CAssetParametersDTO {
 		this.timestamp = timestamp;
 	}
 
-	private String pinType;
-	private String tagType;
-	private String tag;
-	private String uom;
-	private String binary;
-	private String multiplier;
-	private float low;
-	private float high;
-	private double value;
-	private long timestamp;
+	
 
 	public String getPinType() {
 		return pinType;
@@ -118,5 +121,10 @@ public class IC4CAssetParametersDTO {
 	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
 	}
-
+	public String getTileType() {
+		return tileType;
+	}
+	public void setTileType(String tileType) {
+		this.tileType = tileType;
+	}
 }
