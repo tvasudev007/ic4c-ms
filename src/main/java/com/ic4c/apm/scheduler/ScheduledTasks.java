@@ -137,7 +137,7 @@ public class ScheduledTasks {
 								datapoint.add((long) 1);
 								datapoint.add((long) 3);
 								datapoints.add(datapoint);
-								body.add(new TagIngestDTO("ALERT_TEST_123__" + tag.getName(), datapoints, new AttributesDTO(
+								body.add(new TagIngestDTO("ALERT_" + tag.getName(), datapoints, new AttributesDTO(
 										asset.getId(), asset.getParameters().get(tag.getName()).getTagType())));
 							}
 						}

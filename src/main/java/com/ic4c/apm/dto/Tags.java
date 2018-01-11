@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package com.ic4c.apm.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -11,6 +9,7 @@ public class Tags {
 
 	private ResultsJson[] results;
 	private String name;
+	private AttributesDTO attributes;
 
 	public ResultsJson[] getResults() {
 		return results;
@@ -26,5 +25,13 @@ public class Tags {
 
 	public void setResults(ResultsJson[] results) {
 		this.results = results;
+	}
+
+	public AttributesDTO getAttributes() {
+		return attributes;
+	}
+
+	public void setAttributes(AttributesDTO attributes) {
+		this.attributes = attributes;
 	}
 }
