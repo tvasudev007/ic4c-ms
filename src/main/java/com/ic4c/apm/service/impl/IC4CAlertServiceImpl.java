@@ -26,7 +26,9 @@ import com.ic4c.apm.dto.IC4CAlertDTO;
 import com.ic4c.apm.dto.IC4CAssetDTO;
 import com.ic4c.apm.dto.IC4CAssetParametersDTO;
 import com.ic4c.apm.dto.Tags;
+import com.ic4c.apm.dto.TagsForAlerts;
 import com.ic4c.apm.dto.TimeSeriesResponse;
+import com.ic4c.apm.dto.TimeSeriesResponseForAlerts;
 import com.ic4c.apm.service.IC4CAlertService;
 import com.ic4c.apm.service.IC4CTimeseriesQueryAPIService;
 
@@ -67,7 +69,7 @@ public class IC4CAlertServiceImpl implements IC4CAlertService {
 			for (IC4CAssetDTO asset : assetList) {
 				for (Map.Entry<String, IC4CAssetParametersDTO> param : asset.getParameters().entrySet()) {
 					if (param.getValue().getPinType().equalsIgnoreCase("analog")) {
-						tags.add("ALERT_TEST_123__" + param.getKey());
+						tags.add("ALERT_" + param.getKey());
 					}
 				}
 
@@ -75,32 +77,33 @@ public class IC4CAlertServiceImpl implements IC4CAlertService {
 
 			logger.debug("TAG NAME: {}", tags.get(0));
 
-			TimeSeriesResponse responseObj = objectMapper
-					.readValue(IC4CTmsService.getLatestValues(tags, authorizationToken), TimeSeriesResponse.class);
+			TimeSeriesResponseForAlerts responseObj = objectMapper
+					.readValue(IC4CTmsService.getLatestValues(tags, authorizationToken), TimeSeriesResponseForAlerts.class);
 
 			logger.debug("TAG NAME: {}", responseObj.getTags().get(0).getName());
 
 			List<IC4CAlertDTO> alerts = new ArrayList<>();
 
-			for (Tags tag : responseObj.getTags()) {
+			for (TagsForAlerts tag : responseObj.getTags()) {
 				
 				if(tag.getResults().length>0 && tag.getResults()[0].getValues().length>0 ){
 					String assetId;
 					String tagType;
-					if(tag.getAttributes()==null){
+					if(tag.getResults()[0].getAttributes()==null){
 						
 						 assetId = tag.getName();
 						 tagType = tag.getName();
 						
 					}else{
-						 assetId = tag.getAttributes().getHost();
-						 tagType = tag.getAttributes().getCustomer();
+						 assetId = tag.getResults()[0].getAttributes().getHost().get(0);
+						 tagType = tag.getResults()[0].getAttributes().getCustomer().get(0);
 					}
 					
 					long millis = (long) tag.getResults()[0].getValues()[0][0];
 					int statusCode = (int) tag.getResults()[0].getValues()[0][1];
 					Date date = new Date(millis);
-					alerts.add(new IC4CAlertDTO(date, String.valueOf(statusCode), "1 hour ago", assetId, tagType));
+					
+					alerts.add(new IC4CAlertDTO(date, String.valueOf(statusCode), "1 min ago", assetId, tagType));
 				}
 				
 			}

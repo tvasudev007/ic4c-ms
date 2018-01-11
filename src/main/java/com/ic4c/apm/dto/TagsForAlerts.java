@@ -5,12 +5,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Tags {
+public class TagsForAlerts {
 
-	private ResultsJson[] results;
+	private ResultsJsonForAlerts[] results;
 	private String name;
 	
-	public ResultsJson[] getResults() {
+	public ResultsJsonForAlerts[] getResults() {
 		return results;
 	}
 
@@ -22,7 +22,7 @@ public class Tags {
 		this.name = name;
 	}
 
-	public void setResults(ResultsJson[] results) {
+	public void setResults(ResultsJsonForAlerts[] results) {
 		this.results = results;
 	}
 }
