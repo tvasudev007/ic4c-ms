@@ -179,6 +179,7 @@ public class IC4CAssetServiceImpl implements IC4CAssetService {
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<String> classificationClonableResponse = restTemplate.exchange(classificationWithFilterURL,
 				HttpMethod.GET, request, String.class);
+		int digitalCounter=0;
 
 		try {
 			allAssets = classificationClonableResponse.getBody();
@@ -195,7 +196,7 @@ public class IC4CAssetServiceImpl implements IC4CAssetService {
 			Map<String, IC4CAssetParametersDTO> parametersDIGIN = new HashMap<String, IC4CAssetParametersDTO>();
 
 			for (int i = 0; i < tags.size(); i++) {
-
+				digitalCounter++;
 				float mul = Float.parseFloat(assetList.get(0).getParameters().get(tags.get(i)).getMultiplier());
 				String tagName = responseObj.getTags().get(i).getName();
 				long timestamp = (long) responseObj.getTags().get(i).getResults()[0].getValues()[0][0];
@@ -214,7 +215,7 @@ public class IC4CAssetServiceImpl implements IC4CAssetService {
 						char DIGIN = binStr.charAt(j - 1);
 
 						parametersDIGIN.put(pinNames.get(j - 1),
-								new IC4CAssetParametersDTO("digital", "", pinNames.get(j - 1), "NA", "false", "1", 0, 1,
+								new IC4CAssetParametersDTO("digital", String.valueOf(digitalCounter), pinNames.get(j - 1), "NA", "false", "1", 0, 1,
 										Character.getNumericValue(DIGIN), timestamp));
 
 					}
