@@ -3,12 +3,13 @@
  */
 package com.ic4c.apm.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class IC4CAssetParametersDTO {
-	
+
 	private String pinType;
 	private String tagType;
 	private String tag;
@@ -20,9 +21,12 @@ public class IC4CAssetParametersDTO {
 	private double value;
 	private long timestamp;
 	private String tileType;
-	
-	public IC4CAssetParametersDTO(){
-		
+	private int binaryDigits;
+	private List<String> pinNames;
+
+
+	public IC4CAssetParametersDTO() {
+
 	}
 
 	public IC4CAssetParametersDTO(String pinType, String tagType, String tag, String uom, String binary,
@@ -38,9 +42,27 @@ public class IC4CAssetParametersDTO {
 		this.high = high;
 		this.value = value;
 		this.timestamp = timestamp;
+
 	}
 
-	
+	public IC4CAssetParametersDTO(String pinType, String tagType, String tag, String uom, String binary,
+			String multiplier, float low, float high, double value, long timestamp, String tileType, int binaryDigits,
+			List<String> pinNames) {
+		super();
+		this.pinType = pinType;
+		this.tagType = tagType;
+		this.tag = tag;
+		this.uom = uom;
+		this.binary = binary;
+		this.multiplier = multiplier;
+		this.low = low;
+		this.high = high;
+		this.value = value;
+		this.timestamp = timestamp;
+		this.tileType = tileType;
+		this.binaryDigits = binaryDigits;
+		this.pinNames = pinNames;
+	}
 
 	public String getPinType() {
 		return pinType;
@@ -121,10 +143,28 @@ public class IC4CAssetParametersDTO {
 	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
 	}
+
 	public String getTileType() {
 		return tileType;
 	}
+
 	public void setTileType(String tileType) {
 		this.tileType = tileType;
+	}
+
+	public int getBinaryDigits() {
+		return binaryDigits;
+	}
+
+	public void setBinaryDigits(int binaryDigits) {
+		this.binaryDigits = binaryDigits;
+	}
+
+	public List<String> getPinNames() {
+		return pinNames;
+	}
+
+	public void setPinNames(List<String> pinNames) {
+		this.pinNames = pinNames;
 	}
 }
