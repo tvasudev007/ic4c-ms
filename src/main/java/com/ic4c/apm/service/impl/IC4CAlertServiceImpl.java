@@ -25,9 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ic4c.apm.dto.IC4CAlertDTO;
 import com.ic4c.apm.dto.IC4CAssetDTO;
 import com.ic4c.apm.dto.IC4CAssetParametersDTO;
-import com.ic4c.apm.dto.Tags;
 import com.ic4c.apm.dto.TagsForAlerts;
-import com.ic4c.apm.dto.TimeSeriesResponse;
 import com.ic4c.apm.dto.TimeSeriesResponseForAlerts;
 import com.ic4c.apm.service.IC4CAlertService;
 import com.ic4c.apm.service.IC4CTimeseriesQueryAPIService;
@@ -83,9 +81,11 @@ public class IC4CAlertServiceImpl implements IC4CAlertService {
 			logger.debug("TAG NAME: {}", responseObj.getTags().get(0).getName());
 
 			List<IC4CAlertDTO> alerts = new ArrayList<>();
-
+			int id=0;
+			
+			long currentTime = System.currentTimeMillis();
 			for (TagsForAlerts tag : responseObj.getTags()) {
-				
+				id++;
 				if(tag.getResults().length>0 && tag.getResults()[0].getValues().length>0 ){
 					String assetId;
 					String tagType;
@@ -101,9 +101,35 @@ public class IC4CAlertServiceImpl implements IC4CAlertService {
 					
 					long millis = (long) tag.getResults()[0].getValues()[0][0];
 					int statusCode = (int) tag.getResults()[0].getValues()[0][1];
+					logger.debug("TIME IN MILLIS: {} ########### CURRENT TIME: {}",millis,currentTime);
 					Date date = new Date(millis);
-					
-					alerts.add(new IC4CAlertDTO(date, String.valueOf(statusCode), "1 min ago", assetId, tagType));
+					String timeStr = null;
+					if(currentTime-millis<=1000){
+						timeStr="1 sec ago";
+					}
+					else if(currentTime-millis<=1000*60){
+						timeStr="1 min ago";
+					}
+					else if(currentTime-millis<=1000*60*60){
+						
+						int min = (int) ((currentTime-millis)/(1000*60));
+						
+						timeStr= min +" mins ago";
+					}
+					else if(currentTime-millis<=1000*60*60*24){
+						int hours = (int) ((currentTime-millis)/(1000*60*60));
+						
+						timeStr= hours +" hours ago";
+					}
+					else if(currentTime-millis<=1000*60*60*24*10){
+						
+						int days = (int) ((currentTime-millis)/(1000*60*60*24));
+						timeStr= days+" days ago";
+					}
+					else {
+						timeStr="10+ days ago";
+					}
+					alerts.add(new IC4CAlertDTO(id,date, String.valueOf(statusCode), timeStr, assetId, tagType));
 				}
 				
 			}

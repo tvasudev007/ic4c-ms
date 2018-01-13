@@ -7,19 +7,20 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class IC4CAlertDTO {
 
+	private int id;
 	private Date date;
 	private String statusCode;
 	private String assetId;
 	private String dateString;
 	private String assetModel;
-	
+
 	public IC4CAlertDTO() {
 		super();
 	}
-	
-	
-	public IC4CAlertDTO(Date date, String statusCode, String assetId, String dateString, String assetModel) {
+
+	public IC4CAlertDTO(int id, Date date, String statusCode, String dateString, String assetId, String assetModel) {
 		super();
+		this.id = id;
 		this.date = date;
 		this.statusCode = statusCode;
 		this.assetId = assetId;
@@ -67,6 +68,20 @@ public class IC4CAlertDTO {
 		this.assetModel = assetModel;
 	}
 
-	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getStatusCode() {
+		return statusCode;
+	}
+
+	public void setStatusCode(String statusCode) {
+		this.statusCode = statusCode;
+	}
 
 }
