@@ -1,4 +1,4 @@
-package com.ic4c.apm.scheduler;
+/*package com.ic4c.apm.scheduler;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -98,10 +98,10 @@ public class ScheduledTasks {
 			assetList = objectMapper.readValue(allAssets, new TypeReference<List<IC4CAssetDTO>>() {
 			});
 			List<String> tags = new ArrayList<String>();
-			/*
+			
 			 * for (IC4CAssetDTO asset : assetList) {
 			 * tags.addAll(asset.getParameters().keySet()); }
-			 */
+			 
 
 			for (IC4CAssetDTO asset : assetList) {
 				for (Map.Entry<String, IC4CAssetParametersDTO> param : asset.getParameters().entrySet()) {
@@ -218,3 +218,4 @@ public class ScheduledTasks {
 	}
 
 }
+*/
