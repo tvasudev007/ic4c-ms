@@ -23,12 +23,13 @@ public class IC4CAssetParametersDTO {
 	private String tileType;
 	private int binaryDigits;
 	private List<String> pinNames;
+	private int index;
 
 
 	public IC4CAssetParametersDTO() {
 
 	}
-
+	
 	public IC4CAssetParametersDTO(String pinType, String tagType, String tag, String uom, String binary,
 			String multiplier, float low, float high, double value, long timestamp) {
 		super();
@@ -43,11 +44,29 @@ public class IC4CAssetParametersDTO {
 		this.value = value;
 		this.timestamp = timestamp;
 
+
+	}
+
+	public IC4CAssetParametersDTO(String pinType, String tagType, String tag, String uom, String binary,
+			String multiplier, float low, float high, double value, long timestamp,int index) {
+		super();
+		this.pinType = pinType;
+		this.tagType = tagType;
+		this.tag = tag;
+		this.uom = uom;
+		this.binary = binary;
+		this.multiplier = multiplier;
+		this.low = low;
+		this.high = high;
+		this.value = value;
+		this.timestamp = timestamp;
+		this.index=index;
+
 	}
 
 	public IC4CAssetParametersDTO(String pinType, String tagType, String tag, String uom, String binary,
 			String multiplier, float low, float high, double value, long timestamp, String tileType, int binaryDigits,
-			List<String> pinNames) {
+			List<String> pinNames,int index) {
 		super();
 		this.pinType = pinType;
 		this.tagType = tagType;
@@ -62,6 +81,7 @@ public class IC4CAssetParametersDTO {
 		this.tileType = tileType;
 		this.binaryDigits = binaryDigits;
 		this.pinNames = pinNames;
+		this.index =index;
 	}
 
 	public String getPinType() {
@@ -166,5 +186,13 @@ public class IC4CAssetParametersDTO {
 
 	public void setPinNames(List<String> pinNames) {
 		this.pinNames = pinNames;
+	}
+
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
 	}
 }

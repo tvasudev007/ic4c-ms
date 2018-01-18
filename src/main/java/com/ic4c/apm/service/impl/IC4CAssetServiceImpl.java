@@ -179,7 +179,7 @@ public class IC4CAssetServiceImpl implements IC4CAssetService {
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<String> classificationClonableResponse = restTemplate.exchange(classificationWithFilterURL,
 				HttpMethod.GET, request, String.class);
-		int digitalCounter=0;
+		int digitalCounter = 0;
 
 		try {
 			allAssets = classificationClonableResponse.getBody();
@@ -196,7 +196,7 @@ public class IC4CAssetServiceImpl implements IC4CAssetService {
 			Map<String, IC4CAssetParametersDTO> parametersDIGIN = new HashMap<String, IC4CAssetParametersDTO>();
 
 			for (int i = 0; i < tags.size(); i++) {
-				digitalCounter++;
+
 				float mul = Float.parseFloat(assetList.get(0).getParameters().get(tags.get(i)).getMultiplier());
 				String tagName = responseObj.getTags().get(i).getName();
 				long timestamp = (long) responseObj.getTags().get(i).getResults()[0].getValues()[0][0];
@@ -206,18 +206,19 @@ public class IC4CAssetServiceImpl implements IC4CAssetService {
 					int value = (int) responseObj.getTags().get(i).getResults()[0].getValues()[0][1];
 					String binStr = Integer.toBinaryString(value);
 					int binaryDigits = assetList.get(0).getParameters().get(tags.get(i)).getBinaryDigits();
+					int index = assetList.get(0).getParameters().get(tags.get(i)).getIndex();
 					List<String> pinNames = assetList.get(0).getParameters().get(tags.get(i)).getPinNames();
 					while (binStr.length() < binaryDigits) {
 						binStr = "0" + (binStr);
 					}
-					logger.info(responseObj.getTags().get(0).getName()+" : {}", binStr);
+					logger.info(responseObj.getTags().get(0).getName() + " : {}", binStr);
 					for (int j = 1; j <= binaryDigits; j++) {
 						char DIGIN = binStr.charAt(j - 1);
-
+						digitalCounter++;
 						parametersDIGIN.put(pinNames.get(j - 1),
-								new IC4CAssetParametersDTO("digital", String.valueOf(digitalCounter), pinNames.get(j - 1), "NA", "false", "1", 0, 1,
-										Character.getNumericValue(DIGIN), timestamp));
-
+								new IC4CAssetParametersDTO("digital", String.valueOf(digitalCounter),
+										pinNames.get(j - 1), "NA", "false", "1", 0, 1, Character.getNumericValue(DIGIN),
+										timestamp, index));
 					}
 
 				} else {
