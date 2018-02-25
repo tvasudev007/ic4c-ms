@@ -1,6 +1,6 @@
 ---
 applications:
-  - name: ic4c-microservice
+  - name: dofasco-microservice
     buildpack: java_buildpack
     path: target/ic4c-microservice-1.0.0-SNAPSHOT.jar
     memory: 512M
